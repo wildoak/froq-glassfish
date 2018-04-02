@@ -1,0 +1,22 @@
+sudo: required
+language: node_js
+node_js:
+- 8.11.1
+env:
+- DEBUG="froq-glassfish" DEBUG_COLORS=1
+services:
+- docker
+install:
+- yarn install
+- yarn run build
+script:
+- yarn run test:coverage
+after_success: yarn run coverage
+deploy:
+  provider: npm
+  email: renoth@wildoak.de
+  api_key:
+    secure: K1AsiZaPR6hD8qRVKVLDclxJCx78h53bYbSb/iEmQCj7BzZOI2W/FTj47tsm9+X4tw6lprHn8FmHUx9axdy+Qv15H6UUUPTLzpUbjOUXCiX2zaiPIj1S9q34UwCPuhZ2iAWtBnY5waKi1Xyf5KU3gzYgQItd2UuCmAXk2bhGkDUpCgalH5V6jyM714bq3PtuVM5rdeMuc6vySWIYUUTcR7RJbSRddYjF1emGbaUKk0KruZIBj8VTxDWLMdtimAKNCLwF4rF5iQMCZlsnz/uMxRDkOERNieFJIgY8wWEvxYHg9/WU6TUK1AfklfLOj6FdbPuztEbItE9dlIj3DfV4uLMXqZBw1M/5FRvb0oFP2pZfaRGYvet2hEBzy92ytWjc/FoxtCjCBssbho1VksgvA7izr6T5wiGSwn5//GFRULussXhZwdx+phfW8Rs0WjcM7fjedk8m8WxeEVgfwKgTCnJssrNesa7euOCtslHv08to83ivzntM3pYJxW1lZYYHu/pUNKzzZcCstGy2+H1odh8Yxi/1SVjkzObbih4z60lWprW4C7XJDz1v6ystseplLwrWOPqUkVdsmvqa5xQe5Sq3jmQmZ/aD1+CoBsxxmdNBeDqS1zZEuLd6++Nlo/p4zrp7LfEXciU9NagYB2aiu/2VBdi2vZYxAENFrcz6YNY=
+  skip_cleanup: true
+  on:
+    tags: true
